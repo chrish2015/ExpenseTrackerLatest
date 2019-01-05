@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/exit_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:paddingLeft="10dp"
+        android:text="Add Transaction"
+        android:textSize="18sp" />
+
+    <ImageButton
+        android:id="@+id/closeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/exit_dialog"
+        android:layout_alignBottom="@id/exit_dialog"
+        android:layout_alignParentRight="true"
+        android:background="@null"
+        android:paddingRight="10dp"
+        app:srcCompat="@drawable/ic_close" />
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/add_expense"
+        android:layout_below="@+id/exit_dialog">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingRight="3dp"
+            android:paddingLeft="3dp"
+            >
+
+            <RadioGroup
+                android:id="@+id/transactionType"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:checkedButton="@id/incomeRadio">
+
+                <RadioButton
+                    android:id="@+id/incomeRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Income"
+                    android:layout_marginLeft="30dp"/>
+
+                <RadioButton
+                    android:id="@+id/expenseRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Expense"
+                    android:layout_marginRight="30dp"/>
+
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/expenseName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Transaction Name"
+                android:padding="16dp"
+                android:singleLine="true" />
+
+
+
+            <EditText
+                android:id="@+id/expenseDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/expenseName"
+                android:hint="Transaction Details"
+                android:padding="16dp"
+                android:singleLine="false" />
+
+            <Spinner
+                android:id="@+id/category"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:padding="2dp"
+                android:background="@drawable/drop_down_shape"
+                android:dropDownSelector="@drawable/ic_add"
+                android:entries="@array/spinner_values"
+                android:scrollbarSize="10dp" />
+
+            <EditText
+                android:id="@+id/value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:ems="10"
+                android:hint="Value"
+                android:gravity="right"
+                android:inputType="numberDecimal" />
+
+            <DatePicker
+                android:id="@+id/datePicker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/expenseName"
+                android:layout_weight="4"
+                android:padding="10dp"
+                android:datePickerMode="spinner"
+                android:calendarViewShown="false"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/add_expense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="1dp"
+        android:layout_weight="1"
+        android:text="Submit" />
+</RelativeLayout>
