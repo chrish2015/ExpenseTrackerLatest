@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "asc.msc.coursework.com.myapplication"
+        applicationId "asc.msc.coursework.com.expensetracker"
         minSdkVersion 14
         targetSdkVersion 28
         versionCode 1

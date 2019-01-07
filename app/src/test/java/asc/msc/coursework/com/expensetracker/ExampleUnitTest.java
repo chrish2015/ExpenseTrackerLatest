@@ -1,4 +1,4 @@
-package asc.msc.coursework.com.myapplication;
+package asc.msc.coursework.com.expensetracker;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package asc.msc.coursework.com.myapplication;
+package asc.msc.coursework.com.expensetracker;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("asc.msc.coursework.com.myapplication", appContext.getPackageName());
+        assertEquals("asc.msc.coursework.com.expensetracker", appContext.getPackageName());
     }
 }
