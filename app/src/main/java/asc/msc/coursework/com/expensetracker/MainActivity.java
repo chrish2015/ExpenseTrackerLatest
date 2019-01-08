@@ -5,24 +5,32 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import asc.msc.coursework.com.expensetracker.addexpense.AddExpenseDialog;
+import asc.msc.coursework.com.expensetracker.categories.CategoryItemFragment;
+import asc.msc.coursework.com.expensetracker.categories.CategoryView;
+import asc.msc.coursework.com.expensetracker.categories.ViewPageAdapter;
 import asc.msc.coursework.com.expensetracker.dao.DataManipulation;
+import asc.msc.coursework.com.expensetracker.dto.Category;
 import asc.msc.coursework.com.expensetracker.dto.Transaction;
 import asc.msc.coursework.com.expensetracker.expenselist.ExpenseList;
 import asc.msc.coursework.com.expensetracker.dto.Budget;
@@ -30,12 +38,15 @@ import asc.msc.coursework.com.expensetracker.dto.Budget;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public static RecyclerView expenseListView;
-    private DataManipulation dataManipulation = new DataManipulation();
-
+    public static DataManipulation dataManipulation = new DataManipulation();
+    public static LinearLayout ll;
+    LinearLayoutManager manager;
     public static SharedPreferences sharedPreferences;
     public static ExpenseList expenseList;
     public static TextView totalValue;
     public static FragmentManager supportFragmentManager;
+    TabLayout tabLayout;
+    ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        ll = (LinearLayout) findViewById(R.id.contentLayout);
 
         setSharedPreferences();
         dataManipulation.dataInitialization();
@@ -52,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         expenseListView = (RecyclerView) findViewById(R.id.expenseList);
         totalValue = (TextView) findViewById(R.id.totalValue);
 
-        LinearLayoutManager manager = new LinearLayoutManager(this);
+        manager = new LinearLayoutManager(this);
         expenseList = new ExpenseList(this, dataManipulation.getTransactions(), dataManipulation.getCategories());
         expenseListView.setLayoutManager(manager);
         expenseListView.setAdapter(expenseList);
@@ -120,12 +133,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         if (id == R.id.nav_slideshow) {
 
+//            LinearLayout linearLayout = (LinearLayout) findViewById(R.id.contentLayout);
+            ll.removeAllViews(); // remove previous view, add 2nd layout
+            ll.addView(LayoutInflater.from(this).inflate(R.layout.content_main, ll, false));
+            RecyclerView expenseListView = (RecyclerView) findViewById(R.id.expenseList);
+            LinearLayoutManager manager = new LinearLayoutManager(this);
+            ExpenseList expenseList = new ExpenseList(this, dataManipulation.getTransactions(), dataManipulation.getCategories());
+            expenseListView.setLayoutManager(manager);
+            expenseListView.setAdapter(expenseList);
         } else if (id == R.id.nav_manage) {
+            createView();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void createView() {
+
+        ll.removeAllViews(); // remove previous view, add 2nd layout
+        ll.addView(LayoutInflater.from(this).inflate(R.layout.categories_layout, ll, false));
+        ViewPageAdapter viewPageAdapter = new ViewPageAdapter(getSupportFragmentManager());
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        CategoryView categoryView = new CategoryView();
+        categoryView.createCategoryView(viewPageAdapter);
+        viewPager.setAdapter(viewPageAdapter);
+
+        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+
+        tabLayout.setupWithViewPager(viewPager);
     }
 
 
