@@ -45,8 +45,9 @@ public class CategoryView {
                 e.printStackTrace();
             }
             args.putString("transactions", serializeObject);
+            args.putInt("categoryID", i);
             i++;
-            categoryItemFragment.setArguments(args);
+            categoryItemFragment.  setArguments(args);
 
             viewPageAdapter.addFragment(categoryItemFragment, category.getCategoryName());
 

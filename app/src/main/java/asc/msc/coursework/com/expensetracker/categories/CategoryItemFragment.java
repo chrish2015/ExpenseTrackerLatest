@@ -13,11 +13,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import asc.msc.coursework.com.expensetracker.MainActivity;
 import asc.msc.coursework.com.expensetracker.R;
 import asc.msc.coursework.com.expensetracker.dao.Serializer;
+import asc.msc.coursework.com.expensetracker.dto.Category;
 import asc.msc.coursework.com.expensetracker.dto.Transaction;
 import asc.msc.coursework.com.expensetracker.expenselist.ExpenseList;
 
@@ -33,6 +35,7 @@ public class CategoryItemFragment extends Fragment {
         view=inflater.inflate(R.layout.content_main,container,false);
         Bundle arguments = getArguments();
         String transactionsString = arguments.getString("transactions");
+        int categoryID = arguments.getInt("categoryID");
 
         ArrayList<Transaction> transactions = null;
         try {
@@ -41,10 +44,20 @@ public class CategoryItemFragment extends Fragment {
             e.printStackTrace();
         }
         FloatingActionButton viewById = (FloatingActionButton) view.findViewById(R.id.fab);
+        TextView totalText = (TextView) view.findViewById(R.id.totalText);
+        totalText.setText("Remaining Budget  $");
+        totalText.setTextSize(18);
         RecyclerView expenseListView = (RecyclerView) view.findViewById(R.id.expenseList);
 
         LinearLayoutManager manager = new LinearLayoutManager(view.getContext());
-        ExpenseList expenseList = new ExpenseList(view.getContext(), transactions, MainActivity.dataManipulation.getCategories());
+        ArrayList<Category> categories = MainActivity.dataManipulation.getCategories();
+        for(Transaction transaction:transactions){
+            BigDecimal value = transaction.getValue();
+        }
+        Category category = categories.get(categoryID);
+        category.getBudget();
+
+        ExpenseList expenseList = new ExpenseList(view.getContext(), transactions, categories, (TextView) view.findViewById(R.id.totalValue));
         expenseListView.setLayoutManager(manager);
         expenseListView.setAdapter(expenseList);
         viewById.setVisibility(View.GONE);

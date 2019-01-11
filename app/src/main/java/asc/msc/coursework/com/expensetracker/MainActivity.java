@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         totalValue = (TextView) findViewById(R.id.totalValue);
 
         manager = new LinearLayoutManager(this);
-        expenseList = new ExpenseList(this, dataManipulation.getTransactions(), dataManipulation.getCategories());
+        expenseList = new ExpenseList(this, dataManipulation.getTransactions(), dataManipulation.getCategories(), totalValue);
         expenseListView.setLayoutManager(manager);
         expenseListView.setAdapter(expenseList);
 
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View view) {
                 showAddExpense();
             }
-        });
+    });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -138,9 +138,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             ll.addView(LayoutInflater.from(this).inflate(R.layout.content_main, ll, false));
             RecyclerView expenseListView = (RecyclerView) findViewById(R.id.expenseList);
             LinearLayoutManager manager = new LinearLayoutManager(this);
-            ExpenseList expenseList = new ExpenseList(this, dataManipulation.getTransactions(), dataManipulation.getCategories());
+            ExpenseList expenseListNavigation = new ExpenseList(this, dataManipulation.getTransactions(), dataManipulation.getCategories(), (TextView) findViewById(R.id.totalValue));
+            expenseList=expenseListNavigation;
             expenseListView.setLayoutManager(manager);
-            expenseListView.setAdapter(expenseList);
+            expenseListView.setAdapter(expenseListNavigation);
+
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showAddExpense();
+                }
+            });
+
         } else if (id == R.id.nav_manage) {
             createView();
         }

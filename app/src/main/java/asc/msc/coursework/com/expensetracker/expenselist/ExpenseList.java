@@ -39,11 +39,14 @@ public class ExpenseList extends RecyclerView.Adapter<ExpenseList.ListHolder> {
     BigDecimal total = new BigDecimal(0);
     private int mExpandedPosition = -1;
     private Util util = new Util();
+    TextView totalView;
 
-    public ExpenseList(Context context, ArrayList<Transaction> list, ArrayList<Category> categories) {
+
+    public ExpenseList(Context context, ArrayList<Transaction> list, ArrayList<Category> categories, TextView totalView) {
         this.context = context;
-        this.setArrayList(list);
+        this.totalView = totalView;
         this.setCategories(categories);
+        this.setArrayList(list);
         layoutInflater = LayoutInflater.from(context);
     }
 
@@ -182,7 +185,7 @@ public class ExpenseList extends RecyclerView.Adapter<ExpenseList.ListHolder> {
             else
                 total = total.subtract(transaction.getValue());
         }
-        MainActivity.totalValue.setText(total.toString());
+        totalView.setText(total.toString());
 
     }
 
