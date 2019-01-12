@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static FragmentManager supportFragmentManager;
     public static boolean isExpenseView = true;
     public static ViewPageAdapter viewPageAdapter;
+    MenuItem addCategoryMenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +81,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
     }
 
     private void showAddExpense() {
@@ -101,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        addCategoryMenu = menu.findItem(R.id.addCategory);
         return true;
     }
 
@@ -126,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         if (id == R.id.expense_view) {
             isExpenseView=true;
+            addCategoryMenu.setVisible(false);
 //            LinearLayout linearLayout = (LinearLayout) findViewById(R.id.contentLayout);
             LinearLayout linearLayout = (LinearLayout) findViewById(R.id.contentLayout);
 
@@ -162,6 +167,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         ll.removeAllViews(); // remove previous view, add 2nd layout
         ll.addView(LayoutInflater.from(this).inflate(R.layout.categories_layout, ll, false));
+        addCategoryMenu.setVisible(true);
+
         viewPageAdapter = new ViewPageAdapter(getSupportFragmentManager());
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         CategoryView categoryView = new CategoryView();
