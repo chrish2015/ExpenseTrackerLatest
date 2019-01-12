@@ -22,18 +22,12 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import asc.msc.coursework.com.expensetracker.addexpense.AddExpenseDialog;
-import asc.msc.coursework.com.expensetracker.categories.CategoryItemFragment;
 import asc.msc.coursework.com.expensetracker.categories.CategoryView;
 import asc.msc.coursework.com.expensetracker.categories.ViewPageAdapter;
+import asc.msc.coursework.com.expensetracker.category.AddCategoryDialog;
 import asc.msc.coursework.com.expensetracker.dao.DataManipulation;
-import asc.msc.coursework.com.expensetracker.dto.Category;
-import asc.msc.coursework.com.expensetracker.dto.Transaction;
 import asc.msc.coursework.com.expensetracker.expenselist.ExpenseList;
-import asc.msc.coursework.com.expensetracker.dto.Budget;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -45,9 +39,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static ExpenseList expenseList;
     public static TextView totalValue;
     public static FragmentManager supportFragmentManager;
-    TabLayout tabLayout;
-    ViewPager viewPager;
-
+    public static boolean isExpenseView = true;
+    public static ViewPageAdapter viewPageAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,17 +124,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        if (id == R.id.nav_slideshow) {
-
+        if (id == R.id.expense_view) {
+            isExpenseView=true;
 //            LinearLayout linearLayout = (LinearLayout) findViewById(R.id.contentLayout);
-            ll.removeAllViews(); // remove previous view, add 2nd layout
-            ll.addView(LayoutInflater.from(this).inflate(R.layout.content_main, ll, false));
+            LinearLayout linearLayout = (LinearLayout) findViewById(R.id.contentLayout);
+
+            linearLayout.removeAllViews(); // remove previous view, add 2nd layout
+            linearLayout.addView(LayoutInflater.from(this).inflate(R.layout.content_main, ll, false));
             RecyclerView expenseListView = (RecyclerView) findViewById(R.id.expenseList);
             LinearLayoutManager manager = new LinearLayoutManager(this);
-            ExpenseList expenseListNavigation = new ExpenseList(this, dataManipulation.getTransactions(), dataManipulation.getCategories(), (TextView) findViewById(R.id.totalValue));
-            expenseList=expenseListNavigation;
+            expenseList = new ExpenseList(this, dataManipulation.getTransactions(), dataManipulation.getCategories(), (TextView) findViewById(R.id.totalValue));
+
             expenseListView.setLayoutManager(manager);
-            expenseListView.setAdapter(expenseListNavigation);
+            expenseListView.setAdapter(expenseList);
 
             FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
             fab.setOnClickListener(new View.OnClickListener() {
@@ -151,7 +146,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             });
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.category_view) {
+            isExpenseView = false;
             createView();
         }
 
@@ -161,14 +157,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void createView() {
+        TabLayout tabLayout;
+        ViewPager viewPager;
 
         ll.removeAllViews(); // remove previous view, add 2nd layout
         ll.addView(LayoutInflater.from(this).inflate(R.layout.categories_layout, ll, false));
-        ViewPageAdapter viewPageAdapter = new ViewPageAdapter(getSupportFragmentManager());
+        viewPageAdapter = new ViewPageAdapter(getSupportFragmentManager());
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         CategoryView categoryView = new CategoryView();
         categoryView.createCategoryView(viewPageAdapter);
         viewPager.setAdapter(viewPageAdapter);
+
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
@@ -181,5 +180,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     private void setSharedPreferences() {
         sharedPreferences = getSharedPreferences("asc.msc.coursework.com.expensetracker", Context.MODE_PRIVATE);
+    }
+
+    public void addCategoryAction(MenuItem item) {
+        AddCategoryDialog addCategoryDialog = new AddCategoryDialog();
+        addCategoryDialog.show(supportFragmentManager, "addCategory");
     }
 }

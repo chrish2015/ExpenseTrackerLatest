@@ -5,10 +5,13 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.transition.TransitionManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -82,6 +85,10 @@ public class ExpenseList extends RecyclerView.Adapter<ExpenseList.ListHolder> {
         BigDecimal value = new BigDecimal(transaction.getValue().toString());
         total.add(value);
         listHolder.value.setText(String.valueOf(value));
+        if(!MainActivity.isExpenseView){
+            listHolder.edit.setVisibility(View.GONE);
+            listHolder.delete.setVisibility(View.GONE);
+        }
 
 
         final boolean isExpanded = i == mExpandedPosition;
@@ -214,6 +221,17 @@ public class ExpenseList extends RecyclerView.Adapter<ExpenseList.ListHolder> {
             delete = itemView.findViewById(R.id.delete);
             edit = itemView.findViewById(R.id.edit);
         }
+    }
+    private int getCheckedItem(NavigationView navigationView) {
+        Menu menu = navigationView.getMenu();
+        for (int i = 0; i < menu.size(); i++) {
+            MenuItem item = menu.getItem(i);
+            if (item.isChecked()) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 }
 

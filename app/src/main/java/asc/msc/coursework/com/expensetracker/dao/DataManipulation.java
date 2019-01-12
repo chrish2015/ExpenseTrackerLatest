@@ -47,15 +47,15 @@ public class DataManipulation {
         String transactions = getSerializedTransactions();
 
         if (categories == null) {
-            Category foodCategory = new Category("Food", 10000d);
-            Category clothingsCategory = new Category("Clothing", 10000d);
-            Category smallExpenses = new Category("Small Expenses", 10000d);
+            Category foodCategory = new Category("Food", new BigDecimal(10000.00));
+            Category clothingsCategory = new Category("Clothing", new BigDecimal(10000.00));
+            Category smallExpenses = new Category("Small Expenses", new BigDecimal(10000.00));
             ArrayList<Category> categoryList = new ArrayList<>(Arrays.asList(foodCategory, clothingsCategory, smallExpenses));
             setToCategories(categoryList);
         }
         if (transactions == null) {
             Date date = new Date();
-            Transaction income = new Income("Example Income", "Salary", new ArrayList<Integer>(Arrays.asList(01,00,2019)), new BigDecimal("10000.00"), 0);
+            Transaction income = new Income("Example Income", "Salary", new ArrayList<Integer>(Arrays.asList(01,00,2019)), new BigDecimal("1000.00"), 0);
             Transaction expense = new Expense("Example Expense", "Salary", new ArrayList<Integer>(Arrays.asList(01,00,2019)), new BigDecimal("1000.00"), 0);
             ArrayList<Transaction> transactionArrayList = new ArrayList<>(Arrays.asList(income, expense));
             setToTransactions(transactionArrayList);

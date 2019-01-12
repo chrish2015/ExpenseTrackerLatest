@@ -1,6 +1,7 @@
 package asc.msc.coursework.com.expensetracker.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import asc.msc.coursework.com.expensetracker.dao.Serializer;
 
@@ -10,9 +11,9 @@ import asc.msc.coursework.com.expensetracker.dao.Serializer;
 public class Category implements Serializable {
 
     private String categoryName;
-    private double budget;
+    private BigDecimal budget;
 
-    public Category(String categoryName, double budget) {
+    public Category(String categoryName, BigDecimal budget) {
         this.categoryName = categoryName;
         this.budget = budget;
     }
@@ -25,11 +26,11 @@ public class Category implements Serializable {
         this.categoryName = categoryName;
     }
 
-    public double getBudget() {
+    public BigDecimal getBudget() {
         return budget;
     }
 
-    public void setBudget(double budget) {
+    public void setBudget(BigDecimal budget) {
         this.budget = budget;
     }
 }

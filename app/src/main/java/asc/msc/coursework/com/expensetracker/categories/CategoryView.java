@@ -48,7 +48,6 @@ public class CategoryView {
             args.putInt("categoryID", i);
             i++;
             categoryItemFragment.  setArguments(args);
-
             viewPageAdapter.addFragment(categoryItemFragment, category.getCategoryName());
 
         }

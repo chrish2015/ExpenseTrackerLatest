@@ -5,11 +5,11 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/expense_view"
             android:icon="@drawable/ic_attach_money"
             android:title="Track Expense" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/category_view"
             android:icon="@drawable/ic_clear_all"
             android:title="Categories" />
     </group>
