@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -50,7 +51,7 @@ public class AddCategoryDialog extends DialogFragment {
         View closeButton = view.findViewById(R.id.closeButton);
         closeButton.setOnClickListener(onClickListener);
         final EditText value = (EditText) view.findViewById(R.id.budget);
-        Button addCategory=view.findViewById(R.id.add_category);
+        Button addCategory = view.findViewById(R.id.add_category);
         value.addTextChangedListener(new TextWatcher() {
             DecimalFormat dec = new DecimalFormat("0.00");
 
@@ -68,7 +69,7 @@ public class AddCategoryDialog extends DialogFragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!s.toString().equals(current)) {
                     value.removeTextChangedListener(this);
-                    Util util=new Util();
+                    Util util = new Util();
                     String formatted = util.getDollerConvertedString(s);
 
                     current = formatted;
@@ -85,14 +86,17 @@ public class AddCategoryDialog extends DialogFragment {
             public void onClick(View v) {
                 String categoryNameText = categoryName.getText().toString();
                 String budget = value.getText().toString();
+                if (categoryNameText.equals("") || budget.equals("")) {
+                    Toast.makeText(view.getContext(), "Please enter all the values", Toast.LENGTH_SHORT).show();
+                } else {
+                    BigDecimal enteredValue = new BigDecimal(current.replace("$", "").replace(",", ""));
 
-                BigDecimal enteredValue = new BigDecimal(current.replace("$", "").replace(",", ""));
-
-               dataManipulation.addCategories(new Category(categoryNameText,enteredValue));
-                MainActivity.expenseList.setArrayList(dataManipulation.getTransactions());
-                MainActivity.viewPageAdapter.notifyDataSetChanged();
-                MainActivity.mainActivity.createView();
-                dismiss();
+                    dataManipulation.addCategories(new Category(categoryNameText, enteredValue));
+                    MainActivity.expenseList.setArrayList(dataManipulation.getTransactions());
+                    MainActivity.viewPageAdapter.notifyDataSetChanged();
+                    MainActivity.mainActivity.createView();
+                    dismiss();
+                }
             }
         });
     }

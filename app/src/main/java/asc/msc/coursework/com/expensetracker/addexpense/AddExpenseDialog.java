@@ -44,7 +44,7 @@ public class AddExpenseDialog extends DialogFragment {
     public static final String CATEGORY = "category";
     public static final String SOURCE = "source";
     public static final String POSITION = "position";
-
+    int size;
     Util util = new Util();
     DataManipulation dataManipulation = new DataManipulation();
     private String current = "";
@@ -74,7 +74,9 @@ public class AddExpenseDialog extends DialogFragment {
         closeButton.setOnClickListener(onClickListener);
         ExpenseListDropDown expenseListDropDown = new ExpenseListDropDown();
         Spinner category = (Spinner) view.findViewById(R.id.category);
-        expenseListDropDown.createDropDown(category, getContext(), dataManipulation.getCategories());
+        ArrayList<Category> categories = dataManipulation.getCategories();
+        expenseListDropDown.createDropDown(category, getContext(), categories);
+        size = categories.size();
         addExpenseOnClickListner(view);
 
     }
@@ -153,33 +155,35 @@ public class AddExpenseDialog extends DialogFragment {
         addExpense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = expenseNameView.getText().toString();
-                String details = expenseDetailsView.getText().toString();
-
-                ArrayList<Integer> date = util.getDate(datePicker.getDayOfMonth(), datePicker.getMonth(), datePicker.getYear());
-                BigDecimal enteredValue = new BigDecimal(current.replace("$", "").replace(",", ""));
                 int selectedItemPosition = categorySpinner.getSelectedItemPosition();
-
-                if (transactionType.getCheckedRadioButtonId() == incomeRadio.getId()) {
-                    if (getArguments() != null)
-                        dataManipulation.addTransaction(new Income(name, details, date, enteredValue, selectedItemPosition), getArguments().getInt(POSITION));
-                    else
-                        dataManipulation.addTransaction(new Income(name, details, date, enteredValue, selectedItemPosition));
+                if (expenseNameView.getText().toString().equals("") || expenseDetailsView.getText().toString().equals("") || value.getText().toString().equals("") || selectedItemPosition==size) {
+                    Toast.makeText(view.getContext(), "Please enter all the values", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (getArguments() != null)
-                        dataManipulation.addTransaction(new Expense(name, details, date, enteredValue, selectedItemPosition), getArguments().getInt(POSITION));
-                    else
-                        dataManipulation.addTransaction(new Expense(name, details, date, enteredValue, selectedItemPosition));
+                    String name = expenseNameView.getText().toString();
+                    String details = expenseDetailsView.getText().toString();
 
+                    ArrayList<Integer> date = util.getDate(datePicker.getDayOfMonth(), datePicker.getMonth(), datePicker.getYear());
+                    BigDecimal enteredValue = new BigDecimal(current.replace("$", "").replace(",", ""));
+
+                    if (transactionType.getCheckedRadioButtonId() == incomeRadio.getId()) {
+                        if (getArguments() != null)
+                            dataManipulation.addTransaction(new Income(name, details, date, enteredValue, selectedItemPosition), getArguments().getInt(POSITION));
+                        else
+                            dataManipulation.addTransaction(new Income(name, details, date, enteredValue, selectedItemPosition));
+                    } else {
+                        if (getArguments() != null)
+                            dataManipulation.addTransaction(new Expense(name, details, date, enteredValue, selectedItemPosition), getArguments().getInt(POSITION));
+                        else
+                            dataManipulation.addTransaction(new Expense(name, details, date, enteredValue, selectedItemPosition));
+
+                    }
+                    MainActivity.expenseList.setArrayList(dataManipulation.getTransactions());
+                    MainActivity.expenseList.notifyDataSetChanged();
+                    dismiss();
                 }
-                MainActivity.expenseList.setArrayList(dataManipulation.getTransactions());
-                MainActivity.expenseList.notifyDataSetChanged();
-                dismiss();
             }
         });
     }
-
-
 
 
 }
