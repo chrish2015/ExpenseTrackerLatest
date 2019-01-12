@@ -91,6 +91,7 @@ public class AddCategoryDialog extends DialogFragment {
                dataManipulation.addCategories(new Category(categoryNameText,enteredValue));
                 MainActivity.expenseList.setArrayList(dataManipulation.getTransactions());
                 MainActivity.viewPageAdapter.notifyDataSetChanged();
+                MainActivity.mainActivity.createView();
                 dismiss();
             }
         });

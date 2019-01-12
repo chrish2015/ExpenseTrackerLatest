@@ -42,10 +42,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static boolean isExpenseView = true;
     public static ViewPageAdapter viewPageAdapter;
     MenuItem addCategoryMenu;
+    public static MainActivity mainActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mainActivity=this;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -161,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    private void createView() {
+    public void createView() {
         TabLayout tabLayout;
         ViewPager viewPager;
 
