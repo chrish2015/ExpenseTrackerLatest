@@ -13,11 +13,15 @@ public class Transaction implements Serializable {
     private String comment;
     private ArrayList<Integer> date;
     private BigDecimal value;
-    public Transaction(String name, String comment, ArrayList<Integer> date, BigDecimal value) {
+    private boolean isRecurring;
+
+    public Transaction(String name, String comment, ArrayList<Integer> date, BigDecimal value, boolean isRecurring) {
         setName(name);
         setComment(comment);
         setDate(date);
         setValue(value);
+        setRecurring(isRecurring);
+
     }
     public String getName() {
         return name;
@@ -49,5 +53,13 @@ public class Transaction implements Serializable {
 
     public void setValue(BigDecimal value) {
         this.value = value;
+    }
+
+    public boolean isRecurring() {
+        return isRecurring;
+    }
+
+    public void setRecurring(boolean recurring) {
+        isRecurring = recurring;
     }
 }

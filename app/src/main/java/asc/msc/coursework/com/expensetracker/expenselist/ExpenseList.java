@@ -94,12 +94,15 @@ public class ExpenseList extends RecyclerView.Adapter<ExpenseList.ListHolder> {
             listHolder.contentTxt.setText("Name    : " + transaction.getName());
             listHolder.dateTxt.setText("Date           : " + util.getDateString(transaction.getDate()));
             listHolder.commentTxtView.setText("Comment  : " + transaction.getComment());
+            String isRecurring = transaction.isRecurring() == true ? "Yes" : "No";
+            listHolder.recurringStatus.setText("Recurring  : " + isRecurring);
             listHolder.value.setTypeface(listHolder.value.getTypeface(), Typeface.BOLD_ITALIC);
 
         } else {
             listHolder.contentTxt.setText(transaction.getName());
             listHolder.dateTxt.setText(util.getDateString(transaction.getDate()));
             listHolder.commentTxtView.setText(transaction.getComment());
+            listHolder.recurringStatus.setText("");
             listHolder.linearLayoutMain.setBackground(ContextCompat.getDrawable(context, R.drawable.expense_list_click));
             listHolder.value.setTypeface(null, Typeface.BOLD);
 
@@ -153,6 +156,7 @@ public class ExpenseList extends RecyclerView.Adapter<ExpenseList.ListHolder> {
                 args.putString(AddExpenseDialog.NAME, transaction1.getName());
                 args.putString(AddExpenseDialog.COMMENT, transaction1.getComment());
                 args.putIntegerArrayList(AddExpenseDialog.DATE, transaction.getDate());
+                args.putBoolean(AddExpenseDialog.RECURRING, transaction.isRecurring());
                 args.putString(AddExpenseDialog.VLAUE, transaction1.getValue().toString());
                 if (transaction instanceof Expense) {
                     int categoryId = ((Expense) transaction1).getCategoryId();
@@ -199,6 +203,7 @@ public class ExpenseList extends RecyclerView.Adapter<ExpenseList.ListHolder> {
         TextView dateTxt;
         TextView value;
         TextView totalValue;
+        TextView recurringStatus;
         TextView commentTxtView;
         TextView categoryTxtView;
         LinearLayout hiddenLayout;
@@ -213,6 +218,7 @@ public class ExpenseList extends RecyclerView.Adapter<ExpenseList.ListHolder> {
             value = itemView.findViewById(R.id.value);
             totalValue = itemView.findViewById(R.id.totalValue);
             commentTxtView = itemView.findViewById(R.id.commentTxtView);
+            recurringStatus = itemView.findViewById(R.id.recurringStatus);
             categoryTxtView = itemView.findViewById(R.id.categoryTxtView);
             hiddenLayout = itemView.findViewById(R.id.hiddenLayout);
             linearLayoutMain = itemView.findViewById(R.id.linearLayoutMain);

@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -19,7 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import asc.msc.coursework.com.expensetracker.MainActivity;
@@ -39,6 +39,7 @@ public class AddExpenseDialog extends DialogFragment {
     public static final String CATEGORY = "category";
     public static final String SOURCE = "source";
     public static final String POSITION = "position";
+    public static final String RECURRING = "recurring";
     int size;
     Util util = new Util();
     DataManipulation dataManipulation = new DataManipulation();
@@ -90,12 +91,12 @@ public class AddExpenseDialog extends DialogFragment {
         final RadioButton incomeRadio = view.findViewById(R.id.incomeRadio);
         final RadioButton expenseRadio = view.findViewById(R.id.expenseRadio);
         final EditText value = view.findViewById(R.id.value);
+        final CheckBox isRecurring = view.findViewById(R.id.isRecurring);
         final Spinner categorySpinner = view.findViewById(R.id.category);
-
+        final CheckBox isRecurringCheckBox = view.findViewById(R.id.isRecurring);
         value.setRawInputType(Configuration.KEYBOARD_12KEY);
 
         value.addTextChangedListener(new TextWatcher() {
-            DecimalFormat dec = new DecimalFormat("0.00");
 
             @Override
             public void afterTextChanged(Editable arg0) {
@@ -124,11 +125,15 @@ public class AddExpenseDialog extends DialogFragment {
         });
 
         if (getArguments() != null) {
-            if (getArguments().getString(NAME) != null)
-                expenseNameView.setText(getArguments().getString(NAME));
-            if (getArguments().getString(COMMENT) != null)
-                expenseDetailsView.setText(getArguments().getString(COMMENT));
             ArrayList<Integer> integerArrayList = getArguments().getIntegerArrayList(DATE);
+            isRecurring.setChecked(getArguments().getBoolean(RECURRING));
+            if (getArguments().getString(NAME) != null) {
+                expenseNameView.setText(getArguments().getString(NAME));
+            }
+
+            if (getArguments().getString(COMMENT) != null) {
+                expenseDetailsView.setText(getArguments().getString(COMMENT));
+            }
             if (!String.valueOf(integerArrayList).isEmpty()) {
                 datePicker.updateDate(integerArrayList.get(2), integerArrayList.get(1), integerArrayList.get(0));
             }
@@ -151,7 +156,7 @@ public class AddExpenseDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 int selectedItemPosition = categorySpinner.getSelectedItemPosition();
-                if (expenseNameView.getText().toString().equals("") || expenseDetailsView.getText().toString().equals("") || value.getText().toString().equals("") || selectedItemPosition==size) {
+                if (expenseNameView.getText().toString().equals("") || expenseDetailsView.getText().toString().equals("") || value.getText().toString().equals("") || selectedItemPosition == size) {
                     Toast.makeText(view.getContext(), "Please enter all the values", Toast.LENGTH_SHORT).show();
                 } else {
                     String name = expenseNameView.getText().toString();
@@ -160,16 +165,19 @@ public class AddExpenseDialog extends DialogFragment {
                     ArrayList<Integer> date = util.getDate(datePicker.getDayOfMonth(), datePicker.getMonth(), datePicker.getYear());
                     BigDecimal enteredValue = new BigDecimal(current.replace("$", "").replace(",", ""));
 
+                    boolean checked = isRecurringCheckBox.isChecked();
                     if (transactionType.getCheckedRadioButtonId() == incomeRadio.getId()) {
+                        Income transaction = new Income(name, details, date, enteredValue, selectedItemPosition, checked);
                         if (getArguments() != null)
-                            dataManipulation.addTransaction(new Income(name, details, date, enteredValue, selectedItemPosition), getArguments().getInt(POSITION));
+                            dataManipulation.addTransaction(transaction, getArguments().getInt(POSITION));
                         else
-                            dataManipulation.addTransaction(new Income(name, details, date, enteredValue, selectedItemPosition));
+                            dataManipulation.addTransaction(transaction);
                     } else {
+                        Expense transaction = new Expense(name, details, date, enteredValue, selectedItemPosition, checked);
                         if (getArguments() != null)
-                            dataManipulation.addTransaction(new Expense(name, details, date, enteredValue, selectedItemPosition), getArguments().getInt(POSITION));
+                            dataManipulation.addTransaction(transaction, getArguments().getInt(POSITION));
                         else
-                            dataManipulation.addTransaction(new Expense(name, details, date, enteredValue, selectedItemPosition));
+                            dataManipulation.addTransaction(transaction);
 
                     }
                     MainActivity.expenseList.setArrayList(dataManipulation.getTransactions());

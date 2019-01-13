@@ -107,6 +107,14 @@
                 android:gravity="right"
                 android:inputType="numberDecimal" />
 
+            <CheckBox
+                android:id="@+id/isRecurring"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:padding="5dp"
+                android:text="This is a recurring Transaction" />
             <DatePicker
                 android:id="@+id/datePicker"
                 android:layout_width="match_parent"

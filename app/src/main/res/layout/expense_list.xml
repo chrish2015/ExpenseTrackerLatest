@@ -47,34 +47,40 @@
                 android:text="Category" />
 
             <TextView
+                android:id="@+id/recurringStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recurring Status" />
+
+            <TextView
                 android:id="@+id/commentTxtView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Comment" />
-            android:text="Comment" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp">
 
-
-            <ImageButton
-                android:id="@+id/edit"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@null"
-                app:srcCompat="@drawable/ic_mode_edit" />
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/delete"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@null"
-                app:srcCompat="@drawable/ic_delete"/>
-        </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    app:srcCompat="@drawable/ic_mode_edit" />
+
+                <ImageButton
+                    android:id="@+id/delete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    app:srcCompat="@drawable/ic_delete" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

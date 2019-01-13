@@ -8,8 +8,8 @@ import java.util.ArrayList;
  * 
  */
 public class Income extends Transaction implements Serializable {
-    public Income(String name, String comment, ArrayList<Integer> date, BigDecimal value, int sourceId){
-        super(name,comment,date,value);
+    public Income(String name, String comment, ArrayList<Integer> date, BigDecimal value, int sourceId, boolean isRecurring) {
+        super(name, comment, date, value, isRecurring);
         this.sourceId =sourceId;
     }
 
