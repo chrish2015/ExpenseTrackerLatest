@@ -19,7 +19,6 @@ import java.util.ArrayList;
 
 import asc.msc.coursework.com.expensetracker.MainActivity;
 import asc.msc.coursework.com.expensetracker.R;
-import asc.msc.coursework.com.expensetracker.dao.DataManipulation;
 import asc.msc.coursework.com.expensetracker.dao.Serializer;
 import asc.msc.coursework.com.expensetracker.dto.Category;
 import asc.msc.coursework.com.expensetracker.dto.Transaction;
@@ -50,12 +49,12 @@ public class CategoryItemFragment extends Fragment  implements ViewPager.OnPageC
         } catch (IOException e) {
             e.printStackTrace();
         }
-        FloatingActionButton viewById = (FloatingActionButton) view.findViewById(R.id.fab);
-        TextView totalVal = (TextView) view.findViewById(R.id.totalValue);
-        TextView totalText = (TextView) view.findViewById(R.id.totalText);
+        FloatingActionButton viewById = view.findViewById(R.id.fab);
+        TextView totalVal = view.findViewById(R.id.totalValue);
+        TextView totalText = view.findViewById(R.id.totalText);
         totalText.setText("Remaining Budget  $");
         totalText.setTextSize(18);
-        RecyclerView expenseListView = (RecyclerView) view.findViewById(R.id.expenseList);
+        RecyclerView expenseListView = view.findViewById(R.id.expenseList);
 
         LinearLayoutManager manager = new LinearLayoutManager(view.getContext());
         ArrayList<Category> categories = MainActivity.dataManipulation.getCategories();

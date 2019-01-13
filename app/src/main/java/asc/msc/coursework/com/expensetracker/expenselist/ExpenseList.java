@@ -14,14 +14,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 
 import asc.msc.coursework.com.expensetracker.MainActivity;
 import asc.msc.coursework.com.expensetracker.R;
@@ -210,9 +208,9 @@ public class ExpenseList extends RecyclerView.Adapter<ExpenseList.ListHolder> {
 
         public ListHolder(@NonNull View itemView) {
             super(itemView);
-            contentTxt = (TextView) itemView.findViewById(R.id.contentTxt);
-            dateTxt = (TextView) itemView.findViewById(R.id.dateTxt);
-            value = (TextView) itemView.findViewById(R.id.value);
+            contentTxt = itemView.findViewById(R.id.contentTxt);
+            dateTxt = itemView.findViewById(R.id.dateTxt);
+            value = itemView.findViewById(R.id.value);
             totalValue = itemView.findViewById(R.id.totalValue);
             commentTxtView = itemView.findViewById(R.id.commentTxtView);
             categoryTxtView = itemView.findViewById(R.id.categoryTxtView);

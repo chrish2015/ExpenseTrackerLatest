@@ -6,9 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.text.Editable;
-import android.text.InputFilter;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +20,7 @@ import android.widget.Toast;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import asc.msc.coursework.com.expensetracker.MainActivity;
 import asc.msc.coursework.com.expensetracker.R;
@@ -33,7 +29,6 @@ import asc.msc.coursework.com.expensetracker.dto.Category;
 import asc.msc.coursework.com.expensetracker.dto.Expense;
 import asc.msc.coursework.com.expensetracker.dto.Income;
 import asc.msc.coursework.com.expensetracker.util.Util;
-import asc.msc.coursework.com.expensetracker.R;
 
 public class AddExpenseDialog extends DialogFragment {
 
@@ -73,7 +68,7 @@ public class AddExpenseDialog extends DialogFragment {
         View closeButton = view.findViewById(R.id.closeButton);
         closeButton.setOnClickListener(onClickListener);
         ExpenseListDropDown expenseListDropDown = new ExpenseListDropDown();
-        Spinner category = (Spinner) view.findViewById(R.id.category);
+        Spinner category = view.findViewById(R.id.category);
         ArrayList<Category> categories = dataManipulation.getCategories();
         expenseListDropDown.createDropDown(category, getContext(), categories);
         size = categories.size();
@@ -88,14 +83,14 @@ public class AddExpenseDialog extends DialogFragment {
      */
     private void addExpenseOnClickListner(@NonNull final View view) {
         View addExpense = view.findViewById(R.id.add_expense);
-        final TextView expenseNameView = (TextView) view.findViewById(R.id.expenseName);
-        final TextView expenseDetailsView = (TextView) view.findViewById(R.id.expenseDetails);
-        final DatePicker datePicker = (DatePicker) view.findViewById(R.id.datePicker);
-        final RadioGroup transactionType = (RadioGroup) view.findViewById(R.id.transactionType);
-        final RadioButton incomeRadio = (RadioButton) view.findViewById(R.id.incomeRadio);
-        final RadioButton expenseRadio = (RadioButton) view.findViewById(R.id.expenseRadio);
-        final EditText value = (EditText) view.findViewById(R.id.value);
-        final Spinner categorySpinner = (Spinner) view.findViewById(R.id.category);
+        final TextView expenseNameView = view.findViewById(R.id.expenseName);
+        final TextView expenseDetailsView = view.findViewById(R.id.expenseDetails);
+        final DatePicker datePicker = view.findViewById(R.id.datePicker);
+        final RadioGroup transactionType = view.findViewById(R.id.transactionType);
+        final RadioButton incomeRadio = view.findViewById(R.id.incomeRadio);
+        final RadioButton expenseRadio = view.findViewById(R.id.expenseRadio);
+        final EditText value = view.findViewById(R.id.value);
+        final Spinner categorySpinner = view.findViewById(R.id.category);
 
         value.setRawInputType(Configuration.KEYBOARD_12KEY);
 

@@ -2,9 +2,6 @@ package asc.msc.coursework.com.expensetracker.dao;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-
-import asc.msc.coursework.com.expensetracker.MainActivity;
 
 public class SharedPreferenceConfiguration {
 

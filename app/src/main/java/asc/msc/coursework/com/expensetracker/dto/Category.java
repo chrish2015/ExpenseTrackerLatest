@@ -3,8 +3,6 @@ package asc.msc.coursework.com.expensetracker.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import asc.msc.coursework.com.expensetracker.dao.Serializer;
-
 /**
  *
  */

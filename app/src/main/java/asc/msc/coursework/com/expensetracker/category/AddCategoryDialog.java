@@ -11,20 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 import asc.msc.coursework.com.expensetracker.MainActivity;
 import asc.msc.coursework.com.expensetracker.R;
-import asc.msc.coursework.com.expensetracker.addexpense.ExpenseListDropDown;
 import asc.msc.coursework.com.expensetracker.dao.DataManipulation;
 import asc.msc.coursework.com.expensetracker.dto.Category;
-import asc.msc.coursework.com.expensetracker.dto.Expense;
-import asc.msc.coursework.com.expensetracker.dto.Income;
 import asc.msc.coursework.com.expensetracker.util.Util;
 
 public class AddCategoryDialog extends DialogFragment {
@@ -50,7 +45,7 @@ public class AddCategoryDialog extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
         View closeButton = view.findViewById(R.id.closeButton);
         closeButton.setOnClickListener(onClickListener);
-        final EditText value = (EditText) view.findViewById(R.id.budget);
+        final EditText value = view.findViewById(R.id.budget);
         Button addCategory = view.findViewById(R.id.add_category);
         value.addTextChangedListener(new TextWatcher() {
             DecimalFormat dec = new DecimalFormat("0.00");

@@ -1,19 +1,11 @@
 package asc.msc.coursework.com.expensetracker.categories;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
-import android.widget.LinearLayout;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 import asc.msc.coursework.com.expensetracker.MainActivity;
-import asc.msc.coursework.com.expensetracker.R;
-import asc.msc.coursework.com.expensetracker.addexpense.AddExpenseDialog;
-import asc.msc.coursework.com.expensetracker.dao.DataManipulation;
 import asc.msc.coursework.com.expensetracker.dao.Serializer;
 import asc.msc.coursework.com.expensetracker.dto.Category;
 import asc.msc.coursework.com.expensetracker.dto.Expense;

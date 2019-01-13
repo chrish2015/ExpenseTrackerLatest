@@ -16,9 +16,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -48,18 +48,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mainActivity=this;
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ll = (LinearLayout) findViewById(R.id.contentLayout);
+        ll = findViewById(R.id.contentLayout);
 
         setSharedPreferences();
         dataManipulation.dataInitialization();
         supportFragmentManager = getSupportFragmentManager();
 
 
-        expenseListView = (RecyclerView) findViewById(R.id.expenseList);
-        totalValue = (TextView) findViewById(R.id.totalValue);
+        expenseListView = findViewById(R.id.expenseList);
+        totalValue = findViewById(R.id.totalValue);
 
         manager = new LinearLayoutManager(this);
         expenseList = new ExpenseList(this, dataManipulation.getTransactions(), dataManipulation.getCategories(), totalValue);
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         expenseListView.setAdapter(expenseList);
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,13 +75,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
     });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
 
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -134,18 +134,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             isExpenseView=true;
             addCategoryMenu.setVisible(false);
 //            LinearLayout linearLayout = (LinearLayout) findViewById(R.id.contentLayout);
-            LinearLayout linearLayout = (LinearLayout) findViewById(R.id.contentLayout);
+            LinearLayout linearLayout = findViewById(R.id.contentLayout);
 
             linearLayout.removeAllViews(); // remove previous view, add 2nd layout
             linearLayout.addView(LayoutInflater.from(this).inflate(R.layout.content_main, ll, false));
-            RecyclerView expenseListView = (RecyclerView) findViewById(R.id.expenseList);
+            RecyclerView expenseListView = findViewById(R.id.expenseList);
             LinearLayoutManager manager = new LinearLayoutManager(this);
             expenseList = new ExpenseList(this, dataManipulation.getTransactions(), dataManipulation.getCategories(), (TextView) findViewById(R.id.totalValue));
 
             expenseListView.setLayoutManager(manager);
             expenseListView.setAdapter(expenseList);
 
-            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+            FloatingActionButton fab = findViewById(R.id.fab);
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             createView();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -172,13 +172,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         addCategoryMenu.setVisible(true);
 
         viewPageAdapter = new ViewPageAdapter(getSupportFragmentManager());
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        viewPager = findViewById(R.id.viewPager);
         CategoryView categoryView = new CategoryView();
         categoryView.createCategoryView(viewPageAdapter);
         viewPager.setAdapter(viewPageAdapter);
 
 
-        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        tabLayout = findViewById(R.id.tabLayout);
 
         tabLayout.setupWithViewPager(viewPager);
     }
