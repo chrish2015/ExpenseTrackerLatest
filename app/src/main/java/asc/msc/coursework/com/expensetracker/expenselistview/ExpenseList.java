@@ -120,7 +120,7 @@ public class ExpenseList extends RecyclerView.Adapter<ExpenseList.ListHolder> {
             Income income = (Income) transaction;
             if (isExpanded) {
                 listHolder.linearLayoutMain.setBackground(ContextCompat.getDrawable(context, R.drawable.expense_list_clicked_green));
-                listHolder.categoryTxtView.setText("Source       : " + categories.get(income.getSourceId()).getCategoryName());
+                listHolder.categoryTxtView.setVisibility(View.GONE);
             }
 
         }
