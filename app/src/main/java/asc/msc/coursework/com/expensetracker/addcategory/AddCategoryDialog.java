@@ -1,4 +1,4 @@
-package asc.msc.coursework.com.expensetracker.category;
+package asc.msc.coursework.com.expensetracker.addcategory;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

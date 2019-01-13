@@ -1,4 +1,4 @@
-package asc.msc.coursework.com.expensetracker.expenselist;
+package asc.msc.coursework.com.expensetracker.expenselistview;
 
 import android.content.Context;
 import android.graphics.Color;

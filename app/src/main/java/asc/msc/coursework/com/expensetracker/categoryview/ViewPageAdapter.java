@@ -1,4 +1,4 @@
-package asc.msc.coursework.com.expensetracker.categories;
+package asc.msc.coursework.com.expensetracker.categoryview;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;

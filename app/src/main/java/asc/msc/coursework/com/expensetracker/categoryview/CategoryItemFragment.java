@@ -1,4 +1,4 @@
-package asc.msc.coursework.com.expensetracker.categories;
+package asc.msc.coursework.com.expensetracker.categoryview;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,7 +22,7 @@ import asc.msc.coursework.com.expensetracker.R;
 import asc.msc.coursework.com.expensetracker.dao.Serializer;
 import asc.msc.coursework.com.expensetracker.dto.Category;
 import asc.msc.coursework.com.expensetracker.dto.Transaction;
-import asc.msc.coursework.com.expensetracker.expenselist.ExpenseList;
+import asc.msc.coursework.com.expensetracker.expenselistview.ExpenseList;
 
 public class CategoryItemFragment extends Fragment  implements ViewPager.OnPageChangeListener {
 

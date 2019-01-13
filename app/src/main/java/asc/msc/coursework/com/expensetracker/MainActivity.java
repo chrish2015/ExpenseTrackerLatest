@@ -22,12 +22,12 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import asc.msc.coursework.com.expensetracker.addcategory.AddCategoryDialog;
 import asc.msc.coursework.com.expensetracker.addexpense.AddExpenseDialog;
-import asc.msc.coursework.com.expensetracker.categories.CategoryView;
-import asc.msc.coursework.com.expensetracker.categories.ViewPageAdapter;
-import asc.msc.coursework.com.expensetracker.category.AddCategoryDialog;
+import asc.msc.coursework.com.expensetracker.categoryview.CategoryView;
+import asc.msc.coursework.com.expensetracker.categoryview.ViewPageAdapter;
 import asc.msc.coursework.com.expensetracker.dao.DataManipulation;
-import asc.msc.coursework.com.expensetracker.expenselist.ExpenseList;
+import asc.msc.coursework.com.expensetracker.expenselistview.ExpenseList;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 

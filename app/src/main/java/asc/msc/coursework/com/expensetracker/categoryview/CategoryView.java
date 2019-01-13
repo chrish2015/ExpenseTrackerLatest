@@ -1,4 +1,4 @@
-package asc.msc.coursework.com.expensetracker.categories;
+package asc.msc.coursework.com.expensetracker.categoryview;
 
 import android.os.Bundle;
 
