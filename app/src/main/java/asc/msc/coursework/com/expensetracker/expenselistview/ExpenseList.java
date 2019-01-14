@@ -28,7 +28,6 @@ import asc.msc.coursework.com.expensetracker.dto.Category;
 import asc.msc.coursework.com.expensetracker.dto.Expense;
 import asc.msc.coursework.com.expensetracker.dto.Income;
 import asc.msc.coursework.com.expensetracker.dto.Transaction;
-import asc.msc.coursework.com.expensetracker.modles.DataManipulation;
 import asc.msc.coursework.com.expensetracker.util.Util;
 
 public class ExpenseList extends RecyclerView.Adapter<ExpenseList.ListHolder> {
@@ -139,8 +138,7 @@ public class ExpenseList extends RecyclerView.Adapter<ExpenseList.ListHolder> {
             @Override
             public void onClick(View v) {
                 arrayList.remove(i);
-                DataManipulation dataManipulation = new DataManipulation();
-                dataManipulation.setToTransactions(arrayList);
+                MainActivity.dataManipulation.setToTransactions(arrayList);
                 notifyDataSetChanged();
                 setArrayList(arrayList);
             }

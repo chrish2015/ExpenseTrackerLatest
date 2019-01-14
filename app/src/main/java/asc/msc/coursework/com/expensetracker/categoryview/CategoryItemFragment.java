@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -24,7 +23,7 @@ import asc.msc.coursework.com.expensetracker.dto.Transaction;
 import asc.msc.coursework.com.expensetracker.expenselistview.ExpenseList;
 import asc.msc.coursework.com.expensetracker.modles.Serializer;
 
-public class CategoryItemFragment extends Fragment  implements ViewPager.OnPageChangeListener {
+public class CategoryItemFragment extends Fragment implements ViewPager.OnPageChangeListener {
 
     View view;
     ViewPageAdapter viewPageAdapter;
@@ -36,7 +35,7 @@ public class CategoryItemFragment extends Fragment  implements ViewPager.OnPageC
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.content_main, container, false);
-        if(viewPageAdapter == null) {
+        if (viewPageAdapter == null) {
             viewPageAdapter = new ViewPageAdapter(getChildFragmentManager());
         }
         Bundle arguments = getArguments();
@@ -44,11 +43,7 @@ public class CategoryItemFragment extends Fragment  implements ViewPager.OnPageC
         int categoryID = arguments.getInt("categoryID");
 
         ArrayList<Transaction> transactions = null;
-        try {
-            transactions = (ArrayList<Transaction>) Serializer.deserialize(transactionsString);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        transactions = (ArrayList<Transaction>) Serializer.deserialize(transactionsString);
         FloatingActionButton viewById = view.findViewById(R.id.fab);
         TextView totalVal = view.findViewById(R.id.totalValue);
         TextView totalText = view.findViewById(R.id.totalText);

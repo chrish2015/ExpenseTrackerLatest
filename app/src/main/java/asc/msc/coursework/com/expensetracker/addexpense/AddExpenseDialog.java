@@ -27,7 +27,6 @@ import asc.msc.coursework.com.expensetracker.R;
 import asc.msc.coursework.com.expensetracker.dto.Category;
 import asc.msc.coursework.com.expensetracker.dto.Expense;
 import asc.msc.coursework.com.expensetracker.dto.Income;
-import asc.msc.coursework.com.expensetracker.modles.DataManipulation;
 import asc.msc.coursework.com.expensetracker.util.Util;
 
 public class AddExpenseDialog extends DialogFragment {
@@ -42,7 +41,6 @@ public class AddExpenseDialog extends DialogFragment {
     public static final String RECURRING = "recurring";
     int size;
     Util util = new Util();
-    DataManipulation dataManipulation = new DataManipulation();
     private String current = "";
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -70,7 +68,7 @@ public class AddExpenseDialog extends DialogFragment {
         closeButton.setOnClickListener(onClickListener);
         ExpenseListDropDown expenseListDropDown = new ExpenseListDropDown();
         Spinner category = view.findViewById(R.id.category);
-        ArrayList<Category> categories = dataManipulation.getCategories();
+        ArrayList<Category> categories = MainActivity.dataManipulation.getCategories();
         expenseListDropDown.createDropDown(category, getContext(), categories);
         size = categories.size();
         addExpenseOnClickListner(view);
@@ -169,18 +167,18 @@ public class AddExpenseDialog extends DialogFragment {
                     if (transactionType.getCheckedRadioButtonId() == incomeRadio.getId()) {
                         Income transaction = new Income(name, details, date, enteredValue, selectedItemPosition, checked);
                         if (getArguments() != null)
-                            dataManipulation.addTransaction(transaction, getArguments().getInt(POSITION));
+                            MainActivity.dataManipulation.addTransaction(transaction, getArguments().getInt(POSITION));
                         else
-                            dataManipulation.addTransaction(transaction);
+                            MainActivity.dataManipulation.addTransaction(transaction);
                     } else {
                         Expense transaction = new Expense(name, details, date, enteredValue, selectedItemPosition, checked);
                         if (getArguments() != null)
-                            dataManipulation.addTransaction(transaction, getArguments().getInt(POSITION));
+                            MainActivity.dataManipulation.addTransaction(transaction, getArguments().getInt(POSITION));
                         else
-                            dataManipulation.addTransaction(transaction);
+                            MainActivity.dataManipulation.addTransaction(transaction);
 
                     }
-                    MainActivity.expenseList.setArrayList(dataManipulation.getTransactions());
+                    MainActivity.expenseList.setArrayList(MainActivity.dataManipulation.getTransactions());
                     MainActivity.expenseList.notifyDataSetChanged();
                     dismiss();
                 }

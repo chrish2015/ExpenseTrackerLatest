@@ -1,11 +1,11 @@
 package asc.msc.coursework.com.expensetracker.modles;
 
-import java.io.IOException;
+import android.content.SharedPreferences;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import asc.msc.coursework.com.expensetracker.MainActivity;
 import asc.msc.coursework.com.expensetracker.dto.Category;
 import asc.msc.coursework.com.expensetracker.dto.Expense;
 import asc.msc.coursework.com.expensetracker.dto.Income;
@@ -15,6 +15,11 @@ public class DataManipulation {
 
     public static final String CATEGORIES = "categories";
     public static final String TRANSACTIONS = "transactions";
+    private SharedPreferences sharedPreferences;
+
+    public DataManipulation(SharedPreferences sharedPreferences) {
+        this.sharedPreferences = sharedPreferences;
+    }
 
     public void addTransaction(Transaction transaction) {
         ArrayList<Transaction> transactions = getTransactions();
@@ -61,53 +66,38 @@ public class DataManipulation {
     }
 
     private String getSerializedTransactions() {
-        return MainActivity.sharedPreferences.getString(TRANSACTIONS, null);
+        return sharedPreferences.getString(TRANSACTIONS, null);
     }
 
     private String getSerializedCatogories() {
-        return MainActivity.sharedPreferences.getString(CATEGORIES, null);
+        return sharedPreferences.getString(CATEGORIES, null);
     }
 
 
     public void setToCategories(ArrayList<Category> categories) {
-        try {
-            String categoryArrayListSerialized = Serializer.serializeObject(categories);
-            MainActivity.sharedPreferences.edit().putString(CATEGORIES, categoryArrayListSerialized).apply();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String categoryArrayListSerialized = Serializer.serializeObject(categories);
+        sharedPreferences.edit().putString(CATEGORIES, categoryArrayListSerialized).apply();
+
 
     }
 
     public ArrayList<Category> getCategories() {
         String categories = getSerializedCatogories();
         ArrayList<Category> deserializeCategories = null;
-        try {
-            deserializeCategories = (ArrayList<Category>) Serializer.deserialize(categories);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        deserializeCategories = (ArrayList<Category>) Serializer.deserialize(categories);
         return deserializeCategories;
     }
 
     public void setToTransactions(ArrayList<Transaction> transactions) {
-        try {
-            String transactionArrayListSerialized = Serializer.serializeObject(transactions);
-            MainActivity.sharedPreferences.edit().putString(TRANSACTIONS, transactionArrayListSerialized).apply();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String transactionArrayListSerialized = Serializer.serializeObject(transactions);
+        sharedPreferences.edit().putString(TRANSACTIONS, transactionArrayListSerialized).apply();
 
     }
 
     public ArrayList<Transaction> getTransactions() {
         String transactions = getSerializedTransactions();
         ArrayList<Transaction> deserializeTransactions = null;
-        try {
-            deserializeTransactions = (ArrayList<Transaction>) Serializer.deserialize(transactions);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        deserializeTransactions = (ArrayList<Transaction>) Serializer.deserialize(transactions);
         return deserializeTransactions;
     }
 }

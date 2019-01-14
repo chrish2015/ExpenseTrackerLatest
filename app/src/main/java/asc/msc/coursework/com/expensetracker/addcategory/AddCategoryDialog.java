@@ -19,12 +19,10 @@ import java.text.DecimalFormat;
 import asc.msc.coursework.com.expensetracker.MainActivity;
 import asc.msc.coursework.com.expensetracker.R;
 import asc.msc.coursework.com.expensetracker.dto.Category;
-import asc.msc.coursework.com.expensetracker.modles.DataManipulation;
 import asc.msc.coursework.com.expensetracker.util.Util;
 
 public class AddCategoryDialog extends DialogFragment {
     private String current = "";
-    DataManipulation dataManipulation = new DataManipulation();
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
 
@@ -86,8 +84,8 @@ public class AddCategoryDialog extends DialogFragment {
                 } else {
                     BigDecimal enteredValue = new BigDecimal(current.replace("$", "").replace(",", ""));
 
-                    dataManipulation.addCategories(new Category(categoryNameText, enteredValue));
-                    MainActivity.expenseList.setArrayList(dataManipulation.getTransactions());
+                    MainActivity.dataManipulation.addCategories(new Category(categoryNameText, enteredValue));
+                    MainActivity.expenseList.setArrayList(MainActivity.dataManipulation.getTransactions());
                     MainActivity.viewPageAdapter.notifyDataSetChanged();
                     MainActivity.mainActivity.createView();
                     dismiss();

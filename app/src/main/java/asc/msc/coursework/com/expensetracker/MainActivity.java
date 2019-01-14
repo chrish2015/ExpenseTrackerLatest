@@ -29,31 +29,34 @@ import asc.msc.coursework.com.expensetracker.categoryview.ViewPageAdapter;
 import asc.msc.coursework.com.expensetracker.expenselistview.ExpenseList;
 import asc.msc.coursework.com.expensetracker.modles.DataManipulation;
 
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public static RecyclerView expenseListView;
-    public static DataManipulation dataManipulation = new DataManipulation();
-    public static LinearLayout ll;
-    LinearLayoutManager manager;
-    public static SharedPreferences sharedPreferences;
     public static ExpenseList expenseList;
-    public static TextView totalValue;
     public static FragmentManager supportFragmentManager;
-    public static boolean isExpenseView = true;
-    public static ViewPageAdapter viewPageAdapter;
-    MenuItem addCategoryMenu;
     public static MainActivity mainActivity;
+    public static ViewPageAdapter viewPageAdapter;
+    public static DataManipulation dataManipulation;
+    public static boolean isExpenseView = true;
+
+
+    public TextView totalValue;
+    public LinearLayout inflatedLayout;
+    private MenuItem addCategoryMenu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mainActivity=this;
+        dataManipulation = new DataManipulation(getSharedPreferences());
+        mainActivity = this;
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ll = findViewById(R.id.contentLayout);
+        inflatedLayout = findViewById(R.id.contentLayout);
 
-        setSharedPreferences();
+        dataManipulation = new DataManipulation(getSharedPreferences());
         dataManipulation.dataInitialization();
         supportFragmentManager = getSupportFragmentManager();
 
@@ -61,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         expenseListView = findViewById(R.id.expenseList);
         totalValue = findViewById(R.id.totalValue);
 
-        manager = new LinearLayoutManager(this);
+        LinearLayoutManager manager = new LinearLayoutManager(this);
         expenseList = new ExpenseList(this, dataManipulation.getTransactions(), dataManipulation.getCategories(), totalValue);
         expenseListView.setLayoutManager(manager);
         expenseListView.setAdapter(expenseList);
@@ -73,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View view) {
                 showAddExpense();
             }
-    });
+        });
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -131,13 +134,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.expense_view) {
-            isExpenseView=true;
+            isExpenseView = true;
             addCategoryMenu.setVisible(false);
 //            LinearLayout linearLayout = (LinearLayout) findViewById(R.id.contentLayout);
             LinearLayout linearLayout = findViewById(R.id.contentLayout);
 
             linearLayout.removeAllViews(); // remove previous view, add 2nd layout
-            linearLayout.addView(LayoutInflater.from(this).inflate(R.layout.content_main, ll, false));
+            linearLayout.addView(LayoutInflater.from(this).inflate(R.layout.content_main, inflatedLayout, false));
             RecyclerView expenseListView = findViewById(R.id.expenseList);
             LinearLayoutManager manager = new LinearLayoutManager(this);
             expenseList = new ExpenseList(this, dataManipulation.getTransactions(), dataManipulation.getCategories(), (TextView) findViewById(R.id.totalValue));
@@ -167,8 +170,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         TabLayout tabLayout;
         ViewPager viewPager;
 
-        ll.removeAllViews(); // remove previous view, add 2nd layout
-        ll.addView(LayoutInflater.from(this).inflate(R.layout.categories_layout, ll, false));
+        inflatedLayout.removeAllViews(); // remove previous view, add 2nd layout
+        inflatedLayout.addView(LayoutInflater.from(this).inflate(R.layout.categories_layout, inflatedLayout, false));
         addCategoryMenu.setVisible(true);
 
         viewPageAdapter = new ViewPageAdapter(getSupportFragmentManager());
@@ -187,8 +190,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     /**
      * Initialize shared preference for data saving and retrieval.
      */
-    private void setSharedPreferences() {
-        sharedPreferences = getSharedPreferences("asc.msc.coursework.com.expensetracker", Context.MODE_PRIVATE);
+    private SharedPreferences getSharedPreferences() {
+        return getSharedPreferences("asc.msc.coursework.com.expensetracker", Context.MODE_PRIVATE);
     }
 
     public void addCategoryAction(MenuItem item) {
