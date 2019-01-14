@@ -52,9 +52,9 @@
                     android:id="@+id/incomeRadio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
                     android:layout_weight="1"
-                    android:text="Income"
-                    android:layout_marginLeft="30dp"/>
+                    android:text="Income" />
 
                 <RadioButton
                     android:id="@+id/expenseRadio"
@@ -85,7 +85,7 @@
                 android:singleLine="false" />
 
             <Spinner
-                android:id="@+id/category"
+                android:id="@+id/categorySpinner"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="15dp"
@@ -95,7 +95,8 @@
                 android:background="@drawable/drop_down_shape"
                 android:dropDownSelector="@drawable/ic_add"
                 android:entries="@array/spinner_values"
-                android:scrollbarSize="10dp" />
+                android:scrollbarSize="10dp"
+                android:visibility="gone" />
 
             <EditText
                 android:id="@+id/value"

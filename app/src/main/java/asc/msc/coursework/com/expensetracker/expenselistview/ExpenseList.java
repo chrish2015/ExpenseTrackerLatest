@@ -147,28 +147,22 @@ public class ExpenseList extends RecyclerView.Adapter<ExpenseList.ListHolder> {
         listHolder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Transaction transaction1 = arrayList.get(i);
+                Transaction editTransaction = arrayList.get(i);
 
                 Bundle args = new Bundle();
                 args.putInt(AddExpenseDialog.POSITION, i);
-                args.putString(AddExpenseDialog.NAME, transaction1.getName());
-                args.putString(AddExpenseDialog.COMMENT, transaction1.getComment());
+                args.putString(AddExpenseDialog.NAME, editTransaction.getName());
+                args.putString(AddExpenseDialog.COMMENT, editTransaction.getComment());
                 args.putIntegerArrayList(AddExpenseDialog.DATE, transaction.getDate());
                 args.putBoolean(AddExpenseDialog.RECURRING, transaction.isRecurring());
-                args.putString(AddExpenseDialog.VLAUE, transaction1.getValue().toString());
+                args.putString(AddExpenseDialog.VLAUE, editTransaction.getValue().toString());
                 if (transaction instanceof Expense) {
-                    int categoryId = ((Expense) transaction1).getCategoryId();
-                    args.putInt(AddExpenseDialog.CATEGORY, ((Expense) transaction1).getCategoryId());
-                    args.putInt(AddExpenseDialog.SOURCE, -1);
+                    int categoryId = ((Expense) editTransaction).getCategoryId();
+                    args.putInt(AddExpenseDialog.CATEGORY, ((Expense) editTransaction).getCategoryId());
 
                 } else {
-                    int categoryId = ((Income) transaction1).getSourceId();
-                    args.putInt(AddExpenseDialog.SOURCE, ((Income) transaction1).getSourceId());
                     args.putInt(AddExpenseDialog.CATEGORY, -1);
-
-
                 }
-
                 AddExpenseDialog addExpenseDialog = new AddExpenseDialog();
 
                 addExpenseDialog.setArguments(args);

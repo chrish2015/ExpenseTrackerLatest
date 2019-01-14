@@ -198,4 +198,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         AddCategoryDialog addCategoryDialog = new AddCategoryDialog();
         addCategoryDialog.show(supportFragmentManager, "addCategory");
     }
+
+
 }

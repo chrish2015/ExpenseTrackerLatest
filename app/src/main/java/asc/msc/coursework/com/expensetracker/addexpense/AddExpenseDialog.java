@@ -36,7 +36,6 @@ public class AddExpenseDialog extends DialogFragment {
     public static final String COMMENT = "comment";
     public static final String VLAUE = "value";
     public static final String CATEGORY = "category";
-    public static final String SOURCE = "source";
     public static final String POSITION = "position";
     public static final String RECURRING = "recurring";
     int size;
@@ -67,7 +66,7 @@ public class AddExpenseDialog extends DialogFragment {
         View closeButton = view.findViewById(R.id.closeButton);
         closeButton.setOnClickListener(onClickListener);
         ExpenseListDropDown expenseListDropDown = new ExpenseListDropDown();
-        Spinner category = view.findViewById(R.id.category);
+        Spinner category = view.findViewById(R.id.categorySpinner);
         ArrayList<Category> categories = MainActivity.dataManipulation.getCategories();
         expenseListDropDown.createDropDown(category, getContext(), categories);
         size = categories.size();
@@ -90,7 +89,7 @@ public class AddExpenseDialog extends DialogFragment {
         final RadioButton expenseRadio = view.findViewById(R.id.expenseRadio);
         final EditText value = view.findViewById(R.id.value);
         final CheckBox isRecurring = view.findViewById(R.id.isRecurring);
-        final Spinner categorySpinner = view.findViewById(R.id.category);
+        final Spinner categorySpinner = view.findViewById(R.id.categorySpinner);
         final CheckBox isRecurringCheckBox = view.findViewById(R.id.isRecurring);
         value.setRawInputType(Configuration.KEYBOARD_12KEY);
 
@@ -141,20 +140,32 @@ public class AddExpenseDialog extends DialogFragment {
 
             if (getArguments().getInt(CATEGORY) != -1) {
                 int category = getArguments().getInt(CATEGORY);
+                categorySpinner.setVisibility(View.VISIBLE);
                 categorySpinner.setSelection(category);
                 expenseRadio.toggle();
             } else {
-                int source = getArguments().getInt(SOURCE);
-                categorySpinner.setSelection(source);
                 incomeRadio.toggle();
 
             }
         }
+        incomeRadio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                categorySpinner.setVisibility(View.GONE);
+            }
+        });
+        expenseRadio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                categorySpinner.setVisibility(View.VISIBLE);
+            }
+        });
         addExpense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int selectedItemPosition = categorySpinner.getSelectedItemPosition();
-                if (expenseNameView.getText().toString().equals("") || expenseDetailsView.getText().toString().equals("") || value.getText().toString().equals("") || selectedItemPosition == size) {
+                boolean checkedRadio = transactionType.getCheckedRadioButtonId() == incomeRadio.getId();
+                if ((!checkedRadio && selectedItemPosition == size) || (expenseNameView.getText().toString().equals("") || expenseDetailsView.getText().toString().equals("") || value.getText().toString().equals(""))) {
                     Toast.makeText(view.getContext(), "Please enter all the values", Toast.LENGTH_SHORT).show();
                 } else {
                     String name = expenseNameView.getText().toString();
@@ -164,8 +175,8 @@ public class AddExpenseDialog extends DialogFragment {
                     BigDecimal enteredValue = new BigDecimal(current.replace("$", "").replace(",", ""));
 
                     boolean checked = isRecurringCheckBox.isChecked();
-                    if (transactionType.getCheckedRadioButtonId() == incomeRadio.getId()) {
-                        Income transaction = new Income(name, details, date, enteredValue, selectedItemPosition, checked);
+                    if (checkedRadio) {
+                        Income transaction = new Income(name, details, date, enteredValue, checked);
                         if (getArguments() != null)
                             MainActivity.dataManipulation.addTransaction(transaction, getArguments().getInt(POSITION));
                         else
@@ -186,5 +197,8 @@ public class AddExpenseDialog extends DialogFragment {
         });
     }
 
+    public void incomeRadioClicked(View view) {
+
+    }
 
 }

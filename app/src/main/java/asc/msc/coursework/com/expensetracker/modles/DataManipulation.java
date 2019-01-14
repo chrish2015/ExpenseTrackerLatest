@@ -58,7 +58,7 @@ public class DataManipulation {
             setToCategories(categoryList);
         }
         if (transactions == null) {
-            Transaction income = new Income("Example Income", "Salary", new ArrayList<Integer>(Arrays.asList(01, 00, 2019)), new BigDecimal("1000.00"), 0, false);
+            Transaction income = new Income("Example Income", "Salary", new ArrayList<Integer>(Arrays.asList(01, 00, 2019)), new BigDecimal("1000.00"), false);
             Transaction expense = new Expense("Example Expense", "Salary", new ArrayList<Integer>(Arrays.asList(01, 00, 2019)), new BigDecimal("1000.00"), 0, false);
             ArrayList<Transaction> transactionArrayList = new ArrayList<>(Arrays.asList(income, expense));
             setToTransactions(transactionArrayList);
