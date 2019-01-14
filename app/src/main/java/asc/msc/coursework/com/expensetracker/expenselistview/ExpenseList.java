@@ -24,11 +24,11 @@ import java.util.ArrayList;
 import asc.msc.coursework.com.expensetracker.MainActivity;
 import asc.msc.coursework.com.expensetracker.R;
 import asc.msc.coursework.com.expensetracker.addexpense.AddExpenseDialog;
-import asc.msc.coursework.com.expensetracker.dao.DataManipulation;
 import asc.msc.coursework.com.expensetracker.dto.Category;
 import asc.msc.coursework.com.expensetracker.dto.Expense;
 import asc.msc.coursework.com.expensetracker.dto.Income;
 import asc.msc.coursework.com.expensetracker.dto.Transaction;
+import asc.msc.coursework.com.expensetracker.modles.DataManipulation;
 import asc.msc.coursework.com.expensetracker.util.Util;
 
 public class ExpenseList extends RecyclerView.Adapter<ExpenseList.ListHolder> {

@@ -18,8 +18,8 @@ import java.text.DecimalFormat;
 
 import asc.msc.coursework.com.expensetracker.MainActivity;
 import asc.msc.coursework.com.expensetracker.R;
-import asc.msc.coursework.com.expensetracker.dao.DataManipulation;
 import asc.msc.coursework.com.expensetracker.dto.Category;
+import asc.msc.coursework.com.expensetracker.modles.DataManipulation;
 import asc.msc.coursework.com.expensetracker.util.Util;
 
 public class AddCategoryDialog extends DialogFragment {

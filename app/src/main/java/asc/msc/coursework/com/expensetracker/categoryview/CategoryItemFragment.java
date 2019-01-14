@@ -19,10 +19,10 @@ import java.util.ArrayList;
 
 import asc.msc.coursework.com.expensetracker.MainActivity;
 import asc.msc.coursework.com.expensetracker.R;
-import asc.msc.coursework.com.expensetracker.dao.Serializer;
 import asc.msc.coursework.com.expensetracker.dto.Category;
 import asc.msc.coursework.com.expensetracker.dto.Transaction;
 import asc.msc.coursework.com.expensetracker.expenselistview.ExpenseList;
+import asc.msc.coursework.com.expensetracker.modles.Serializer;
 
 public class CategoryItemFragment extends Fragment  implements ViewPager.OnPageChangeListener {
 

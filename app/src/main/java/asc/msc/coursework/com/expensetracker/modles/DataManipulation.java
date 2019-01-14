@@ -1,4 +1,4 @@
-package asc.msc.coursework.com.expensetracker.dao;
+package asc.msc.coursework.com.expensetracker.modles;
 
 import java.io.IOException;
 import java.math.BigDecimal;

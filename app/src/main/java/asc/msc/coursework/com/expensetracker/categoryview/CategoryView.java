@@ -6,10 +6,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import asc.msc.coursework.com.expensetracker.MainActivity;
-import asc.msc.coursework.com.expensetracker.dao.Serializer;
 import asc.msc.coursework.com.expensetracker.dto.Category;
 import asc.msc.coursework.com.expensetracker.dto.Expense;
 import asc.msc.coursework.com.expensetracker.dto.Transaction;
+import asc.msc.coursework.com.expensetracker.modles.Serializer;
 
 public class CategoryView {
 

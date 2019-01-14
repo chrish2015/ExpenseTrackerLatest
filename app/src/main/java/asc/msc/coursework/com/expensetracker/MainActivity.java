@@ -26,8 +26,8 @@ import asc.msc.coursework.com.expensetracker.addcategory.AddCategoryDialog;
 import asc.msc.coursework.com.expensetracker.addexpense.AddExpenseDialog;
 import asc.msc.coursework.com.expensetracker.categoryview.CategoryView;
 import asc.msc.coursework.com.expensetracker.categoryview.ViewPageAdapter;
-import asc.msc.coursework.com.expensetracker.dao.DataManipulation;
 import asc.msc.coursework.com.expensetracker.expenselistview.ExpenseList;
+import asc.msc.coursework.com.expensetracker.modles.DataManipulation;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
