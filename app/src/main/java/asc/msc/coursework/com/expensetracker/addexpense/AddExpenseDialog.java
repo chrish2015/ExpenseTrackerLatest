@@ -196,9 +196,4 @@ public class AddExpenseDialog extends DialogFragment {
             }
         });
     }
-
-    public void incomeRadioClicked(View view) {
-
-    }
-
 }
