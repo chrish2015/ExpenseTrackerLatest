@@ -3,6 +3,7 @@ package asc.msc.coursework.com.expensetracker.util;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class Util {
 
@@ -22,7 +23,7 @@ public class Util {
         String cleanString = s.toString().replaceAll("[$,.]", "");
 
         double parsed = Double.parseDouble(cleanString);
-        return NumberFormat.getCurrencyInstance().format((parsed / 100));
+        return NumberFormat.getCurrencyInstance(Locale.US).format((parsed / 100));
     }
 
     public static double round(double value, int places) {
